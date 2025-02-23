@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from '../../core/components/header/header.component';
 
 @Component({
-  selector: 'app-wrapper',
+  selector: 'qm-wrapper',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet, HeaderComponent],
   templateUrl: './wrapper.component.html',
   styleUrl: './wrapper.component.scss'
 })
