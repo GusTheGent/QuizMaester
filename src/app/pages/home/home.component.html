@@ -1,15 +1,51 @@
 <div class="home-container">
   <div class="settings-container">
-    <mat-card class="settings">
+    <mat-card>
       <mat-card-title>Quiz Settings</mat-card-title>
       <mat-card-content>
-        <form [formGroup]="settingsForm" (ngSubmit)="submitQuizSettings()">
+        @if(quizCategories$ | async; as categories) {
+        <form
+          class="settings-form"
+          [formGroup]="settingsForm"
+          (ngSubmit)="submitQuizSettings()"
+        >
           <mat-form-field>
             <mat-label>Number of Questions</mat-label>
-            <input matInput type="number" max="50" formControlName="selectedQuantity"/>
+            <input
+              matInput
+              type="number"
+              max="50"
+              formControlName="selectedQuantity"
+            />
           </mat-form-field>
-          <button type="submit">Submit</button>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="selectedCategory">
+              <mat-option [value]="'Any Category'">Any Category</mat-option>
+              @for(category of categories; track category) {
+              <mat-option [value]="category.id">{{ category.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Difficulty</mat-label>
+            <mat-select formControlName="selectedDifficulty">
+              @for(difficulty of quizDifficulties; track difficulty) {
+              <mat-option [value]="difficulty">{{ difficulty }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="selectedQuizType">
+              @for(type of quizTypes; track type) {
+              <mat-option [value]="type">{{ type }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button type="submit" mat-raised-button color="primary">Start Quiz</button>
         </form>
+        }
       </mat-card-content>
     </mat-card>
   </div>
