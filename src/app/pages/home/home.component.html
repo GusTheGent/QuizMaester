@@ -13,9 +13,16 @@
           <input
           matInput
           type="number"
+          min="1"
           max="50"
           formControlName="selectedQuantity"
           />
+          <mat-error *ngIf="settingsForm.get('selectedQuantity')?.hasError('min')">
+            Questions must be at least 1.
+          </mat-error>
+          <mat-error *ngIf="settingsForm.get('selectedQuantity')?.hasError('max')">
+            Questions must be at most 50.
+          </mat-error>
         </mat-form-field>
         @if(quizCategories$ | async; as categories) {
           <mat-form-field>

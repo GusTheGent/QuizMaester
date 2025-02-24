@@ -20,7 +20,20 @@ export class QuizService {
     })
   }
 
+  public saveToken(token_response: OpenTriviaDB_Token_Response): void {
+    sessionStorage.setItem('token', token_response.token);
+  }
+
+  public getSavedToken(key: string): string | null {
+    return sessionStorage.getItem(key);
+  }
+
   public getQuizCategories(): Observable<Categories> {
     return this.http.get<Categories>(`${this.baseUrl}/api_category.php`);
   }
+
+  // public createQuiz(): Observable<any> {
+
+  // }
+
 }
