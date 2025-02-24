@@ -9,12 +9,12 @@ import {
 import { EnvironmentProviders } from '@angular/core';
 
 export const provideHttpClientModule = (
-  interceptors?: HttpInterceptorFn[]
+  interceptors: HttpInterceptorFn[]
 ): EnvironmentProviders => {
 
   return provideHttpClient(
     withFetch(),
-    withInterceptors(interceptors!),
+    withInterceptors(interceptors),
     withInterceptorsFromDi()
   );
 };

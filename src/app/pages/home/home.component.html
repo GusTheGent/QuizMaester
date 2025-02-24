@@ -3,21 +3,21 @@
     <mat-card>
       <mat-card-title>Quiz Settings</mat-card-title>
       <mat-card-content>
-        @if(quizCategories$ | async; as categories) {
         <form
-          class="settings-form"
-          [formGroup]="settingsForm"
-          (ngSubmit)="submitQuizSettings()"
+        class="settings-form"
+        [formGroup]="settingsForm"
+        (ngSubmit)="submitQuizSettings()"
         >
-          <mat-form-field>
-            <mat-label>Number of Questions</mat-label>
-            <input
-              matInput
-              type="number"
-              max="50"
-              formControlName="selectedQuantity"
-            />
-          </mat-form-field>
+        <mat-form-field>
+          <mat-label>Number of Questions</mat-label>
+          <input
+          matInput
+          type="number"
+          max="50"
+          formControlName="selectedQuantity"
+          />
+        </mat-form-field>
+        @if(quizCategories$ | async; as categories) {
           <mat-form-field>
             <mat-label>Category</mat-label>
             <mat-select formControlName="selectedCategory">
@@ -27,6 +27,7 @@
               }
             </mat-select>
           </mat-form-field>
+        }
           <mat-form-field>
             <mat-label>Difficulty</mat-label>
             <mat-select formControlName="selectedDifficulty">
@@ -45,7 +46,6 @@
           </mat-form-field>
           <button type="submit" mat-raised-button color="primary">Start Quiz</button>
         </form>
-        }
       </mat-card-content>
     </mat-card>
   </div>
