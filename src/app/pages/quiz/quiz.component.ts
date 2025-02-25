@@ -20,12 +20,12 @@ import { RoutePath } from '../../routes/routes.enum';
 export class QuizComponent implements OnInit {
   public quiz: Quiz | null = null;
   public currentQuestionIndex: number = 0;
-  public showNextQuestion: boolean = false;
   public finishedQuiz: boolean = false;
   public answerFeedback: 'correct' | 'incorrect' | null = null;
   public selectedAnswer: string | null = null;
   public shuffledAnswers: string[] = [];
   public isAnswerValidating: boolean = false;
+  public correctAnswer: string | null = null;
 
   constructor(private quizService: QuizService, private router: Router) {}
 
@@ -41,6 +41,8 @@ export class QuizComponent implements OnInit {
   public onValidateAnswer(answer: string): void {
     this.isAnswerValidating = true;
     this.selectedAnswer = answer;
+    let correct = this.quiz!.results[this.currentQuestionIndex].correct_answer;
+    this.correctAnswer = correct;
     if (
       answer === this.quiz!.results[this.currentQuestionIndex].correct_answer
     ) {
@@ -52,15 +54,15 @@ export class QuizComponent implements OnInit {
     setTimeout(() => {
       this.answerFeedback = null;
       this.selectedAnswer = null;
+      this.isAnswerValidating = false;
+      this.correctAnswer = null;
       if (this.currentQuestionIndex < (this.quiz?.results.length || 0) - 1) {
         this.currentQuestionIndex++;
-        this.showNextQuestion = false;
-        this.isAnswerValidating = false;
         this.loadShuffledAnswers();
       } else {
         this.finishedQuiz = true;
       }
-    }, 500);
+    }, 1000);
   }
 
   public formatAnswers(): string[] {

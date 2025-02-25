@@ -26,6 +26,9 @@
       {{ answer | base64Decode }}
     </button>
     }
+    @if (answerFeedback === 'incorrect' && correctAnswer) {
+      <p class="correct-answer">Correct Answer: {{ correctAnswer | base64Decode }}</p>
+    }
   </mat-card-content>
   } @case ('boolean') {
   <mat-card-content class="boolean">
