@@ -14,6 +14,8 @@ export class QuizService {
 
   private readonly baseUrl = 'https://opentdb.com';
 
+  private currentQuiz: Quiz;
+
   constructor(private http: HttpClient) { }
 
   public getSessionToken(): Observable<OpenTriviaDB_Token_Response> {
@@ -34,6 +36,12 @@ export class QuizService {
     })
   }
 
+  public get getCurrentQuiz(): Quiz {
+    return this.currentQuiz;
+  }
 
+  public set setCurrentQuiz(quiz: Quiz) {
+    this.currentQuiz = quiz;
+  }
 
 }

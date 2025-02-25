@@ -27,6 +27,7 @@ import { saveToken } from '../../shared/utils/token.helper';
 import { checkQuizForReconfiguration } from '../../shared/utils/quiz-params.helper';
 import { Router } from '@angular/router';
 import { Quiz } from '../../shared/interfaces/quiz.interface';
+import { RoutePath } from '../../routes/routes.enum';
 
 @Component({
   selector: 'app-home',
@@ -71,12 +72,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.quizService
-      .getSessionToken()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((token_response: OpenTriviaDB_Token_Response) => {
-        saveToken(token_response);
-      });
+    if(!sessionStorage.getItem('token')) {
+      this.quizService
+        .getSessionToken()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((token_response: OpenTriviaDB_Token_Response) => {
+          saveToken(token_response);
+        });
+    }
     this.initializeSettingsForm();
   }
 
@@ -91,6 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.quizService.createQuiz(settingsFormValues).pipe(takeUntil(this.destroy$)).subscribe((quiz: Quiz) => {
       console.log('quiz', quiz);
       this.reconfigure = checkQuizForReconfiguration(quiz);
+      this.quizService.setCurrentQuiz = quiz;
       this.navigateToQuiz();
     })
   }
@@ -107,7 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private navigateToQuiz(): void {
     if(!this.reconfigure) {
-      this.router.navigate(['quiz']);
+      this.router.navigate([RoutePath.QUIZ]);
     } else {
       return;
     }
