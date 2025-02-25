@@ -10,7 +10,7 @@ export function createQuizParams(settingsForm: SettingsForm): HttpParams {
       const value = settingsForm[key as keyof SettingsForm];
       switch (key) {
         case 'amount':
-        // case 'encode':
+        case 'encode':
           params = params.append(key, value);
           break;
         case 'category':

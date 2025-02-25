@@ -1,1 +1,50 @@
-<p>quiz works!</p>
+@if (quiz && !finishedQuiz) {
+<mat-card class="quiz-card">
+  <mat-card-header>
+    {{ quiz.results[currentQuestionIndex].difficulty | base64Decode }}
+  </mat-card-header>
+  <mat-card-title>
+    {{ quiz.results[currentQuestionIndex].category | base64Decode }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ quiz.results[currentQuestionIndex].question | base64Decode }}
+  </mat-card-subtitle>
+
+  @switch (quiz.results[currentQuestionIndex].type | base64Decode) { @case
+  ('multiple') {
+  <mat-card-content class="multiple">
+    @for (answer of formatAnswers(); track answer) {
+    <button
+      mat-stroked-button
+      (click)="onValidateAnswer(answer)"
+      [disabled]="isAnswerValidating"
+      [ngClass]="{
+        'correct': answerFeedback === 'correct' && answer === selectedAnswer,
+        'incorrect': answerFeedback === 'incorrect' && answer === selectedAnswer
+      }"
+    >
+      {{ answer | base64Decode }}
+    </button>
+    }
+  </mat-card-content>
+  } @case ('boolean') {
+  <mat-card-content class="boolean">
+    @for (answer of formatAnswers(); track answer) {
+    <button
+    mat-stroked-button
+    (click)="onValidateAnswer(answer)"
+    [disabled]="isAnswerValidating"
+    [ngClass]="{
+      'correct': answerFeedback === 'correct' && answer === selectedAnswer,
+      'incorrect': answerFeedback === 'incorrect' && answer === selectedAnswer
+    }"
+    >
+      {{ answer | base64Decode }}
+    </button>
+    }
+  </mat-card-content>
+  } }
+</mat-card>
+} @if(finishedQuiz) {
+<p>Quiz Finished!</p>
+}
