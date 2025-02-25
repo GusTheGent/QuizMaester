@@ -15,19 +15,19 @@
           type="number"
           min="1"
           max="50"
-          formControlName="selectedQuantity"
+          formControlName="amount"
           />
-          <mat-error *ngIf="settingsForm.get('selectedQuantity')?.hasError('min')">
+          <mat-error *ngIf="settingsForm.get('amount')?.hasError('min')">
             Questions must be at least 1.
           </mat-error>
-          <mat-error *ngIf="settingsForm.get('selectedQuantity')?.hasError('max')">
+          <mat-error *ngIf="settingsForm.get('amount')?.hasError('max')">
             Questions must be at most 50.
           </mat-error>
         </mat-form-field>
         @if(quizCategories$ | async; as categories) {
           <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select formControlName="selectedCategory">
+            <mat-select formControlName="category">
               <mat-option [value]="'Any Category'">Any Category</mat-option>
               @for(category of categories; track category) {
               <mat-option [value]="category.id">{{ category.name }}</mat-option>
@@ -37,7 +37,7 @@
         }
           <mat-form-field>
             <mat-label>Difficulty</mat-label>
-            <mat-select formControlName="selectedDifficulty">
+            <mat-select formControlName="difficulty">
               @for(difficulty of quizDifficulties; track difficulty) {
               <mat-option [value]="difficulty">{{ difficulty }}</mat-option>
               }
@@ -45,7 +45,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Type</mat-label>
-            <mat-select formControlName="selectedQuizType">
+            <mat-select formControlName="type">
               @for(type of quizTypes; track type) {
               <mat-option [value]="type">{{ type }}</mat-option>
               }

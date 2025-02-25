@@ -1,11 +1,9 @@
 import { HttpInterceptorFn } from "@angular/common/http";
-import { inject } from "@angular/core";
 import { catchError, throwError } from "rxjs";
-import { QuizService } from "../../shared/services/quiz.service";
+import { getSavedToken } from "../../shared/utils/token.helper";
 
 export const requestInterceptor: HttpInterceptorFn = (req, next) => {
-  const quizService = inject(QuizService);
-  const session_token =  quizService.getSavedToken('token');
+  const session_token =  getSavedToken('token');
 
   if (session_token) {
     req = req.clone({

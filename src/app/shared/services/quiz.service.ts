@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OpenTriviaDB_Token_Response } from '../interfaces/token-response.interface';
 import { Categories } from '../interfaces/quiz-category.interface';
+import { SettingsForm } from '../interfaces/settings-form.interface';
+import { createQuizParams } from '../utils/quiz-params.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +22,15 @@ export class QuizService {
     })
   }
 
-  public saveToken(token_response: OpenTriviaDB_Token_Response): void {
-    sessionStorage.setItem('token', token_response.token);
-  }
-
-  public getSavedToken(key: string): string | null {
-    return sessionStorage.getItem(key);
-  }
-
   public getQuizCategories(): Observable<Categories> {
     return this.http.get<Categories>(`${this.baseUrl}/api_category.php`);
   }
 
-  // public createQuiz(): Observable<any> {
-
-  // }
+  public createQuiz(settingsForm: SettingsForm): Observable<any>{
+    const params = createQuizParams(settingsForm);
+    return this.http.get(`${this.baseUrl}/api.php`, {
+      params: params
+    })
+  }
 
 }
