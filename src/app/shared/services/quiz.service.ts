@@ -5,6 +5,7 @@ import { OpenTriviaDB_Token_Response } from '../interfaces/token-response.interf
 import { Categories } from '../interfaces/quiz-category.interface';
 import { SettingsForm } from '../interfaces/settings-form.interface';
 import { createQuizParams } from '../utils/quiz-params.helper';
+import { Quiz } from '../interfaces/quiz.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,13 @@ export class QuizService {
     return this.http.get<Categories>(`${this.baseUrl}/api_category.php`);
   }
 
-  public createQuiz(settingsForm: SettingsForm): Observable<any>{
+  public createQuiz(settingsForm: SettingsForm): Observable<Quiz>{
     const params = createQuizParams(settingsForm);
-    return this.http.get(`${this.baseUrl}/api.php`, {
+    return this.http.get<Quiz>(`${this.baseUrl}/api.php`, {
       params: params
     })
   }
+
+
 
 }

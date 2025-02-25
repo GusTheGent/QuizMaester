@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { SettingsForm } from '../interfaces/settings-form.interface';
+import { Quiz } from '../interfaces/quiz.interface';
 
 export function createQuizParams(settingsForm: SettingsForm): HttpParams {
   let params = new HttpParams();
@@ -42,4 +43,10 @@ export function createQuizParams(settingsForm: SettingsForm): HttpParams {
     }
   }
   return params;
+}
+
+
+export function checkQuizForReconfiguration(quiz: Quiz): boolean {
+  let reconfigure: boolean;
+  return quiz.results.length === 0 ? reconfigure = true : false;
 }

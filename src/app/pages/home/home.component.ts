@@ -24,6 +24,9 @@ import { TriviaCategory } from '../../shared/interfaces/quiz-category.interface'
 import { OpenTriviaDB_Token_Response } from '../../shared/interfaces/token-response.interface';
 import { SettingsForm } from '../../shared/interfaces/settings-form.interface';
 import { saveToken } from '../../shared/utils/token.helper';
+import { checkQuizForReconfiguration } from '../../shared/utils/quiz-params.helper';
+import { Router } from '@angular/router';
+import { Quiz } from '../../shared/interfaces/quiz.interface';
 
 @Component({
   selector: 'app-home',
@@ -49,6 +52,7 @@ import { saveToken } from '../../shared/utils/token.helper';
 export class HomeComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   public settingsForm: FormGroup;
+  public reconfigure: boolean = false;
   public quizDifficulties: string[] = [
     'Any Difficulty',
     'Easy',
@@ -62,7 +66,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private quizService: QuizService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +88,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   public submitQuizSettings(): void {
     const settingsFormValues = this.settingsForm.value as SettingsForm;
     console.log(settingsFormValues);
-    this.quizService.createQuiz(settingsFormValues).subscribe(x => console.log(x))
+    this.quizService.createQuiz(settingsFormValues).pipe(takeUntil(this.destroy$)).subscribe((quiz: Quiz) => {
+      console.log('quiz', quiz);
+      this.reconfigure = checkQuizForReconfiguration(quiz);
+      this.navigateToQuiz();
+    })
   }
 
   private initializeSettingsForm(): void {
@@ -94,5 +103,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       type: ['Any Type'],
       encode: 'base64',
     });
+  }
+
+  private navigateToQuiz(): void {
+    if(!this.reconfigure) {
+      this.router.navigate(['quiz']);
+    } else {
+      return;
+    }
   }
 }

@@ -52,6 +52,9 @@
             </mat-select>
           </mat-form-field>
           <button type="submit" mat-raised-button color="primary">Start Quiz</button>
+          <mat-error *ngIf="reconfigure">
+            Quiz unavailable, please reconfigure your settings.
+          </mat-error>
         </form>
       </mat-card-content>
     </mat-card>
