@@ -6,13 +6,14 @@ import { Categories } from '../interfaces/quiz-category.interface';
 import { SettingsForm } from '../interfaces/settings-form.interface';
 import { createQuizParams } from '../utils/quiz-params.helper';
 import { Quiz } from '../interfaces/quiz.interface';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
 
-  private readonly baseUrl = 'https://opentdb.com';
+  private readonly apiUrl = environment.apiUrl;
 
   private currentQuiz: Quiz;
 
@@ -20,18 +21,18 @@ export class QuizService {
 
   public getSessionToken(): Observable<OpenTriviaDB_Token_Response> {
     const params = new HttpParams().set('command', 'request');
-    return this.http.post<OpenTriviaDB_Token_Response>(`${this.baseUrl}/api_token.php`, null, {
+    return this.http.post<OpenTriviaDB_Token_Response>(`${this.apiUrl}/api_token.php`, null, {
       params: params
     })
   }
 
   public getQuizCategories(): Observable<Categories> {
-    return this.http.get<Categories>(`${this.baseUrl}/api_category.php`);
+    return this.http.get<Categories>(`${this.apiUrl}/api_category.php`);
   }
 
   public createQuiz(settingsForm: SettingsForm): Observable<Quiz>{
     const params = createQuizParams(settingsForm);
-    return this.http.get<Quiz>(`${this.baseUrl}/api.php`, {
+    return this.http.get<Quiz>(`${this.apiUrl}/api.php`, {
       params: params
     })
   }
