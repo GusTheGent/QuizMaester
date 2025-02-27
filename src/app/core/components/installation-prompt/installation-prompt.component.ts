@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
 import { map, Observable, take, timer } from 'rxjs';
 import { SWHandlerService } from '../../../shared/services/sw-handler.service';
 
-
-
 @Component({
   selector: 'app-installation-prompt',
   standalone: true,
@@ -15,7 +13,6 @@ import { SWHandlerService } from '../../../shared/services/sw-handler.service';
   providers: [SWHandlerService],
 })
 export class InstallationPromptComponent {
-
   display$: Observable<boolean> = this.swHanlder.displayInstaller$.pipe(
     map((promptExists) => promptExists && !this.closeModal)
   );

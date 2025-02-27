@@ -1,8 +1,8 @@
 export const environment = {
-  production: false,
+  production: true,
   apiUrl: 'https://opentdb.com',
   serviceWorker: {
-    enabled: false,
+    enabled: true,
     registrationStrategy: 'registerWhenStable:30000',
   },
 };

@@ -4,9 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:stag": "npm run build:stag && npm run http-server",
+    "build:stag": "ng build --configuration staging",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "http-server": "http-server dist/quiz-maester/browser -p 8080 -c-1 --proxy http://localhost:8080?"
   },
   "private": true,
   "dependencies": {
