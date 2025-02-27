@@ -6,16 +6,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { loaderInterceptor } from './core/interceptors/loader.interceptor';
 import { provideHttpClientModule } from './app-config-setup/http-client.factory';
 import { requestInterceptor } from './core/interceptors/request.interceptor';
-import { provideServiceWorker } from '@angular/service-worker';
+import { provideServiceWorkerAndInitializer } from './app-config-setup/ngsw.factory';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClientModule([loaderInterceptor, requestInterceptor]),
-    provideServiceWorker('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        registrationStrategy: 'registerWhenStable:30000'
-    })
+    provideServiceWorkerAndInitializer()
 ]
 };

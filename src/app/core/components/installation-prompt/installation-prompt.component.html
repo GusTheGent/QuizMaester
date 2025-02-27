@@ -1,0 +1,13 @@
+@if(display$ | async; as display){
+  <div class="installation-prompt-container" [ngClass]="{ hide: closeModal }">
+    <div class="question">Install Quiz Maester</div>
+    <div class="btn-container">
+      <button class="install" type="button" (click)="installApp()">
+        Install
+      </button>
+      <button class="exit" type="button" (click)="close()">
+        Close
+      </button>
+    </div>
+  </div>
+  }
