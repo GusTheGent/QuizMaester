@@ -40,6 +40,7 @@
     @for (answer of formatAnswers(); track answer) {
     <button
       mat-stroked-button
+      class="answer-button"
       (click)="onValidateAnswer(answer)"
       [disabled]="isAnswerValidating"
       [ngClass]="{
@@ -51,7 +52,7 @@
     </button>
     } @if (answerFeedback === 'incorrect' && correctAnswer) {
     <p class="correct-answer">
-      Correct Answer: {{ correctAnswer | base64Decode }}
+      {{ correctAnswer | base64Decode }}
     </p>
     }
   </mat-card-content>
@@ -60,6 +61,7 @@
     @for (answer of formatAnswers(); track answer) {
     <button
       mat-stroked-button
+      class="answer-button"
       (click)="onValidateAnswer(answer)"
       [disabled]="isAnswerValidating"
       [ngClass]="{
@@ -74,5 +76,12 @@
   } }
 </mat-card>
 } @if(finishedQuiz) {
-<p>Quiz Finished!</p>
+  <mat-card class="results">
+    <mat-card-title>Score</mat-card-title>
+    <mat-card-content class="score">{{score.length}} / {{ quiz?.results?.length }}</mat-card-content>
+    <mat-card-footer class="results-footer">
+      <img class="faced-result" [src]="getFace()" alt="faced-result">
+      <button mat-flat-button color="primary" (click)="onNewQuiz()">New Quiz</button>
+    </mat-card-footer>
+  </mat-card>
 }

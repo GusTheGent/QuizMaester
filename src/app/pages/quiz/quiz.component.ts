@@ -26,6 +26,7 @@ export class QuizComponent implements OnInit {
   public shuffledAnswers: string[] = [];
   public isAnswerValidating: boolean = false;
   public correctAnswer: string | null = null;
+  public score: string[] = [];
 
   constructor(private quizService: QuizService, private router: Router) {}
 
@@ -43,6 +44,7 @@ export class QuizComponent implements OnInit {
     this.selectedAnswer = answer;
     let correct = this.quiz!.results[this.currentQuestionIndex].correct_answer;
     this.correctAnswer = correct;
+    this.createScore(this.selectedAnswer, this.correctAnswer);
     if (
       answer === this.quiz!.results[this.currentQuestionIndex].correct_answer
     ) {
@@ -61,6 +63,8 @@ export class QuizComponent implements OnInit {
         this.loadShuffledAnswers();
       } else {
         this.finishedQuiz = true;
+        console.log(this.score);
+
       }
     }, 1000);
   }
@@ -83,5 +87,35 @@ export class QuizComponent implements OnInit {
     }
 
     this.shuffledAnswers = answers;
+  }
+
+  public getFace(): string {
+    if (!this.quiz || !this.quiz.results || this.quiz.results.length === 0) {
+      return '';
+    }
+
+    const percentage = (this.score.length / this.quiz.results.length) * 100;
+
+    if (percentage < 40) {
+      return 'assets/icons/faces/sad-face.svg';
+    } else if (percentage >= 40 && percentage < 50) {
+      return 'assets/icons/faces/unamused-face.svg';
+    } else if (percentage === 50) {
+      return 'assets/icons/faces/neutral-face.svg';
+    } else if (percentage >= 50 && percentage < 90) {
+      return 'assets/icons/faces/happy-face.svg';
+    } else {
+      return 'assets/icons/faces/excited-face.svg';
+    }
+  }
+
+  public onNewQuiz(): void {
+    this.router.navigate([RoutePath.EMPTY])
+  }
+
+  private createScore(selectedAnswer: string, correctAnswer: string): void {
+    if(selectedAnswer === correctAnswer) {
+      this.score.push(correctAnswer);
+    }
   }
 }

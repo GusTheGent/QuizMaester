@@ -2,6 +2,7 @@
   text-align: center;
   max-width: 500px;
   margin: 10rem auto;
+  padding: 1rem;
 
   .top-card {
     display: flex;
@@ -29,7 +30,6 @@
     }
   }
 
-
   .multiple {
     display: flex;
     flex-direction: column;
@@ -51,8 +51,13 @@
   button.incorrect {
     background-color: lightcoral;
   }
+
+  .answer-button {
+    width: 100%;
+  }
+
   .correct-answer {
-    color: #1b8f1b;
+    color: #2eee2e;
     font-weight: bold;
     font-size: larger;
   }
@@ -80,5 +85,35 @@
     margin: 0.5rem;
     color: #007bff;
     text-align: end;
+  }
+
+  mat-card-subtitle {
+    font-weight: bold;
+    font-size: large;
+  }
+}
+
+.results {
+  text-align: center;
+  max-width: 500px;
+  max-height: 250px;
+  margin: 10rem auto;
+  padding: 1rem;
+  .score {
+    font-weight: bold;
+    font-size: larger;
+  }
+  .results-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    .faced-result {
+      width: 50px;
+      height: 50px;
+      margin-top: 2rem;
+    }
   }
 }
