@@ -1,6 +1,9 @@
 @if (quiz && !finishedQuiz) {
 <mat-card class="quiz-card">
   <div class="top-card">
+    <mat-card-title>
+      {{ quiz.results[currentQuestionIndex].category | base64Decode }}
+    </mat-card-title>
     <div
       class="difficulty"
       [ngClass]="quiz.results[currentQuestionIndex].difficulty | base64Decode"
@@ -12,24 +15,8 @@
       />
       {{ quiz.results[currentQuestionIndex].difficulty | base64Decode }}
     </div>
-    @if(quiz.results.length <= 10) {
-    <div class="step-indicators">
-      @for (i of quiz.results; track i; let index = $index) {
-      <div
-        class="step-indicator"
-        [class.active]="index <= currentQuestionIndex"
-      ></div>
-      }
-    </div>
-    } @else {
-    <p class="record-track">
-      {{ currentQuestionIndex + 1 }} / {{ quiz.results.length }}
-    </p>
-    }
+
   </div>
-  <mat-card-title>
-    {{ quiz.results[currentQuestionIndex].category | base64Decode }}
-  </mat-card-title>
   <mat-card-subtitle>
     {{ quiz.results[currentQuestionIndex].question | base64Decode }}
   </mat-card-subtitle>
@@ -39,8 +26,9 @@
   <mat-card-content class="multiple">
     @for (answer of formatAnswers(); track answer) {
     <button
-      mat-stroked-button
+      mat-raised-button
       class="answer-button"
+      color="primary"
       (click)="onValidateAnswer(answer)"
       [disabled]="isAnswerValidating"
       [ngClass]="{
@@ -60,8 +48,9 @@
   <mat-card-content class="boolean">
     @for (answer of formatAnswers(); track answer) {
     <button
-      mat-stroked-button
+      mat-raised-button
       class="answer-button"
+      color="primary"
       (click)="onValidateAnswer(answer)"
       [disabled]="isAnswerValidating"
       [ngClass]="{
@@ -74,6 +63,22 @@
     }
   </mat-card-content>
   } }
+  <mat-card-footer>
+    @if(quiz.results.length <= 10) {
+      <div class="step-indicators">
+        @for (i of quiz.results; track i; let index = $index) {
+        <div
+          class="step-indicator"
+          [class.active]="index <= currentQuestionIndex"
+        ></div>
+        }
+      </div>
+      } @else {
+      <p class="record-track">
+        {{ currentQuestionIndex + 1 }} / {{ quiz.results.length }}
+      </p>
+      }
+  </mat-card-footer>
 </mat-card>
 } @if(finishedQuiz) {
   <mat-card class="results">

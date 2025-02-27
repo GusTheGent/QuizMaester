@@ -1,12 +1,11 @@
 .quiz-card {
   text-align: center;
   max-width: 500px;
-  margin: 10rem auto;
   padding: 1rem;
 
   .top-card {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     .difficulty {
       font-weight: bolder;
@@ -84,21 +83,37 @@
     font-weight: bold;
     margin: 0.5rem;
     color: #007bff;
-    text-align: end;
+    text-align: center;
   }
 
   mat-card-subtitle {
     font-weight: bold;
     font-size: large;
+    margin: 1rem 0;
   }
 }
 
 .results {
   text-align: center;
-  max-width: 500px;
+  min-width: 300px;
   max-height: 250px;
   margin: 10rem auto;
   padding: 1rem;
+  background-color: #f0f0f0;
+  animation: pulseBackground 4s ease-in-out infinite;
+
+  @keyframes pulseBackground {
+    0% {
+      background-color: #e0f7fa;
+    }
+    50% {
+      background-color: #b8dfe4;
+    }
+    100% {
+      background-color: #e0f7fa;
+    }
+  }
+
   .score {
     font-weight: bold;
     font-size: larger;

@@ -32,7 +32,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.quiz = this.quizService.getCurrentQuiz;
-    if(this.quiz) {
+    if (this.quiz) {
       this.loadShuffledAnswers();
     } else {
       this.router.navigate([RoutePath.EMPTY]);
@@ -64,7 +64,6 @@ export class QuizComponent implements OnInit {
       } else {
         this.finishedQuiz = true;
         console.log(this.score);
-
       }
     }, 1000);
   }
@@ -78,7 +77,8 @@ export class QuizComponent implements OnInit {
     const incorrect = [
       ...this.quiz!.results[this.currentQuestionIndex].incorrect_answers,
     ];
-    const correct = this.quiz!.results[this.currentQuestionIndex].correct_answer;
+    const correct =
+      this.quiz!.results[this.currentQuestionIndex].correct_answer;
     answers = [...incorrect, correct];
 
     for (let i = answers.length - 1; i > 0; i--) {
@@ -110,11 +110,11 @@ export class QuizComponent implements OnInit {
   }
 
   public onNewQuiz(): void {
-    this.router.navigate([RoutePath.EMPTY])
+    this.router.navigate([RoutePath.EMPTY]);
   }
 
   private createScore(selectedAnswer: string, correctAnswer: string): void {
-    if(selectedAnswer === correctAnswer) {
+    if (selectedAnswer === correctAnswer) {
       this.score.push(correctAnswer);
     }
   }
