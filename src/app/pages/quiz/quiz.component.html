@@ -25,23 +25,20 @@
   ('multiple') {
   <mat-card-content class="multiple">
     @for (answer of formatAnswers(); track answer) {
-    <button
-      mat-raised-button
-      class="answer-button"
-      color="primary"
-      (click)="onValidateAnswer(answer)"
-      [disabled]="isAnswerValidating"
-      [ngClass]="{
-        correct: answerFeedback === 'correct' && answer === selectedAnswer,
-        incorrect: answerFeedback === 'incorrect' && answer === selectedAnswer
-      }"
-    >
-      {{ answer | base64Decode }}
-    </button>
-    } @if (answerFeedback === 'incorrect' && correctAnswer) {
-    <p class="correct-answer">
-      {{ correctAnswer | base64Decode }}
-    </p>
+      <button
+        mat-raised-button
+        class="answer-button"
+        color="primary"
+        (click)="onValidateAnswer(answer)"
+        [disabled]="isAnswerValidating"
+        [ngClass]="{
+          correct: answerFeedback === 'correct' && answer === selectedAnswer,
+          incorrect: answerFeedback === 'incorrect' && answer === selectedAnswer,
+          highlightCorrect: answerFeedback === 'incorrect' && answer === correctAnswer
+        }"
+      >
+        {{ answer | base64Decode }}
+      </button>
     }
   </mat-card-content>
   } @case ('boolean') {

@@ -35,6 +35,11 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+
+    .answer-button.highlightCorrect {
+      background-color: #2eee2e;
+      color: black;
+    }
   }
   .boolean {
     display: flex;
